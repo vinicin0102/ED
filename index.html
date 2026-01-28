@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner Metabólico Avançado</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .hidden-step {
+            display: none;
+        }
+
+        .next-btn {
+            background: linear-gradient(90deg, #ff003c, #c0002b);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            margin-top: 25px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.4);
+            transition: 0.3s;
+            text-transform: uppercase;
+            width: 100%;
+        }
+
+        .next-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 60, 0.7);
+        }
+
+        .next-btn:disabled {
+            background: #333;
+            cursor: not-allowed;
+            box-shadow: none;
+            opacity: 0.5;
+        }
+
+        .scan-line {
+            width: 100%;
+            height: 2px;
+            background: #0f0;
+            box-shadow: 0 0 10px #0f0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: scanMove 2s infinite linear;
+        }
+
+        @keyframes scanMove {
+            0% {
+                top: 0;
+            }
+
+            100% {
+                top: 100%;
+            }
+        }
+
+        .emoji-option {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- QUIZ WRAPPER -->
+    <div id="quiz-wrapper" class="quiz-container">
+
+        <!-- HEADER COM BARRA DE PROGRESSO -->
+        <div class="quiz-header">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="color: #666; font-size: 0.8rem;">SESSÃO: #X99-VIRAL</span>
+                <span style="color: #0f0; font-size: 0.8rem;"><i class="fas fa-satellite-dish"></i> ONLINE</span>
+            </div>
+            <div class="progress-container" style="background: #333; height: 8px; border-radius: 4px;">
+                <div id="progress" class="progress-bar"
+                    style="height: 100%; background: linear-gradient(90deg, #ff003c, #8b5cf6); width: 0%; transition: width 0.5s;">
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 0: INICIAL (HOOK AGRESSIVO) -->
+        <div id="step-start" class="question-card" style="text-align: center;">
+            <div class="radar-scan"></div>
+            <h1 style="font-size: 1.8rem; color: white;">TESTE DE "GORDURA MORTAL"</h1>
+            <p style="color: #aaa; margin: 15px 0;">Responda 10 perguntas rápidas para descobrir se seu metabolismo está
+                <strong>BLOQUEADO</strong>.</p>
+            <p style="color: #ff003c; font-size: 0.9rem; margin-bottom: 20px;">⚠️ Atenção: Revela a causa oculta do seu
+                peso.</p>
+            <button class="next-btn pulse" onclick="goToStep(1)">COMEÇAR SCAN AGORA ➤</button>
+        </div>
+
+        <!-- STEP 1: GÊNERO -->
+        <div id="step-1" class="question-card hidden-step">
+            <p class="question-text">PASSO 1/10: Qual seu gênero biológico?</p>
+            <div class="options">
+                <button class="option-btn" onclick="goToStep(2)">👩 Mulher</button>
+                <button class="option-btn" onclick="goToStep(2)">👨 Homem</button>
+            </div>
+        </div>
+
+        <!-- STEP 2: IDADE -->
+        <div id="step-2" class="question-card hidden-step">
+            <p class="question-text">PASSO 2/10: Qual sua idade?</p>
+            <div class="options">
+                <button class="option-btn" onclick="goToStep(3)">18 a 29 anos</button>
+                <button class="option-btn" onclick="goToStep(3)">30 a 39 anos</button>
+                <button class="option-btn" onclick="goToStep(3)">40 a 49 anos (Metabolismo Lento)</button>
+                <button class="option-btn" onclick="goToStep(3)">50+ anos (Risco Elevado)</button>
+            </div>
+        </div>
+
+        <!-- STEP 3: META DE PESO (AGRESSIVO) -->
+        <div id="step-3" class="question-card hidden-step">
+            <p class="question-text">PASSO 3/10: Quanta "gordura suja" você precisa eliminar?</p>
+
+            <div class="slider-container">
+                <div class="weight-display"><span id="weight-val">10</span> kg</div>
+                <input type="range" min="5" max="60" value="10" class="range-slider" id="weightRange"
+                    oninput="updateWeight(this.value)">
+            </div>
+
+            <div
+                style="background: #111; padding: 15px; border-radius: 8px; border: 1px dashed #333; margin-top: 20px;">
+                <p style="color: #aaa; font-size: 0.9rem;">Previsão Realista:</p>
+                <div class="weight-diff" id="time-estimate" style="color: #4ade80;">7 a 14 Dias ⚡</div>
+            </div>
+
+            <button class="next-btn" onclick="goToStep(4)">CONTINUAR</button>
+        </div>
+
+        <!-- STEP 4: ZONAS PROBLEMÁTICAS -->
+        <div id="step-4" class="question-card hidden-step">
+            <p class="question-text">PASSO 4/10: Onde a gordura teimosa se esconde?</p>
+            <p style="font-size: 0.9rem; color: #888; margin-bottom: 20px;">(Marque todas que te incomodam)</p>
+
+            <div class="body-zones">
+                <div class="zone-btn" onclick="toggleZone(this)">
+                    <i class="fas fa-drumstick-bite"></i> <span>Coxas / Celulite</span>
+                </div>
+                <div class="zone-btn" onclick="toggleZone(this)">
+                    <i class="fas fa-pizza-slice"></i> <span>Barriga Pochete</span>
+                </div>
+                <div class="zone-btn" onclick="toggleZone(this)">
+                    <i class="fas fa-grin-beam-sweat"></i> <span>Papada / Rosto</span>
+                </div>
+                <div class="zone-btn" onclick="toggleZone(this)">
+                    <i class="fas fa-child"></i> <span>Braços Flácidos</span>
+                </div>
+            </div>
+            <button id="btn-step-4" class="next-btn" disabled onclick="goToStep(5)">PRÓXIMO</button>
+        </div>
+
+        <!-- STEP 5: SINTOMAS (NOVO) -->
+        <div id="step-5" class="question-card hidden-step">
+            <p class="question-text">PASSO 5/10: Você sente algum desses sintomas?</p>
+            <div class="options">
+                <button class="option-btn" onclick="goToStep(6)">Cansaço extremo após almoçar</button>
+                <button class="option-btn" onclick="goToStep(6)">Dificuldade para dormir / Insônia</button>
+                <button class="option-btn" onclick="goToStep(6)">Vontade incontrolável de doces</button>
+                <button class="option-btn" onclick="goToStep(6)">TODOS ACIMA (Perigo ⚠️)</button>
+            </div>
+        </div>
+
+        <!-- STEP 6: EXPERIÊNCIA PASSADA -->
+        <div id="step-6" class="question-card hidden-step">
+            <p class="question-text">PASSO 6/10: O que você já tentou antes?</p>
+            <div class="options">
+                <button class="option-btn" onclick="goToStep(7)">Dietas restritivas (passou fome)</button>
+                <button class="option-btn" onclick="goToStep(7)">Academia / Crossfit (sem resultado)</button>
+                <button class="option-btn" onclick="goToStep(7)">Remédios / Chás (efeito sanfona)</button>
+                <button class="option-btn" onclick="goToStep(7)">Nada funcionou até hoje...</button>
+            </div>
+        </div>
+
+        <!-- STEP 7: URGÊNCIA VS TEMPO -->
+        <div id="step-7" class="question-card hidden-step">
+            <p class="question-text">PASSO 7/10: Você tem tempo para ir à academia 2h por dia?</p>
+            <div class="options">
+                <button class="option-btn" onclick="goToStep(8)">Sim, tenho tempo sobrando.</button>
+                <button class="option-btn" onclick="goToStep(8)">Não! Minha rotina é corrida.</button>
+                <button class="option-btn" onclick="goToStep(8)">Odeio academia.</button>
+            </div>
+        </div>
+
+        <!-- STEP 8: PROMESSA AGRESSIVA (PEDIDO USUÁRIO) -->
+        <div id="step-8" class="question-card hidden-step">
+            <p class="question-text">PASSO 8/10: Seja sincera...</p>
+            <h2 style="color: #ff003c; margin: 20px 0; font-size: 1.4rem;">Se você pudesse perder <span
+                    style="background: yellow; color: black; padding: 0 5px;">7kg em apenas 7 dias</span> sem passar
+                fome...</h2>
+            <p class="question-text">Você estaria disposta a seguir um ritual simples de 30 segundos?</p>
+            <div class="options">
+                <button class="option-btn" style="border: 2px solid #4ade80;" onclick="goToStep(9)">SIM! EU QUERO ISSO
+                    AGORA!</button>
+                <button class="option-btn" onclick="goToStep(9)">Talvez... desconfio que seja possível.</button>
+            </div>
+        </div>
+
+        <!-- STEP 9: COMPROMISSO FINAL -->
+        <div id="step-9" class="question-card hidden-step">
+            <p class="question-text">PASSO 9/10: Última pergunta.</p>
+            <p style="color: #ccc; margin-bottom: 20px;">Nosso sistema detectou que você é a candidata ideal para o
+                <strong>Protocolo Mounjatina</strong>.</p>
+            <p class="question-text">Você se compromete a usar a gelatina CORRETAMENTE por 30 dias?</p>
+            <div class="options">
+                <button class="option-btn pulse" style="background: #16a34a; color: white; border: none;"
+                    onclick="goToStep(10)">SIM, EU ME COMPROMETO! ✋</button>
+                <button class="option-btn" onclick="goToStep(10)">Não sei se consigo...</button>
+            </div>
+        </div>
+
+        <!-- STEP 10: PROCESSAMENTO (TERMINAL FAKE) -->
+        <div id="step-10" class="question-card hidden-step"
+            style="position: relative; overflow: hidden; padding-top: 40px;">
+            <div class="scan-line"></div>
+            <div class="radar-scan" style="width: 80px; height: 80px; margin: 0 auto 20px auto;"></div>
+            <h2 style="color: #8b5cf6; text-align: center;">CALCULANDO RESULTADO...</h2>
+
+            <div id="terminal-screen" class="terminal-log">
+                <!-- Linhas inseridas via JS -->
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let selectedZones = 0;
+        const TOTAL_STEPS = 10;
+
+        function toggleZone(element) {
+            element.classList.toggle('selected');
+            selectedZones = element.classList.contains('selected') ? selectedZones + 1 : selectedZones - 1;
+
+            const btn = document.getElementById('btn-step-4');
+            if (selectedZones > 0) {
+                btn.disabled = false;
+                btn.classList.add('pulse');
+            } else {
+                btn.disabled = true;
+                btn.classList.remove('pulse');
+            }
+        }
+
+        function updateWeight(val) {
+            document.getElementById('weight-val').innerText = val;
+            let days = Math.round(val * 0.8); // + Agressivo (quase 1kg por dia)
+            if (days < 7) days = 7;
+            document.getElementById('time-estimate').innerText = `${days} Dias para eliminar tudo ⚡`;
+        }
+
+        function goToStep(step) {
+            // Esconder todos
+            document.getElementById('step-start').style.display = 'none';
+            for (let i = 1; i <= TOTAL_STEPS; i++) {
+                const el = document.getElementById('step-' + i);
+                if (el) el.style.display = 'none';
+            }
+
+            // Mostrar atual
+            const target = document.getElementById('step-' + step);
+            if (target) target.style.display = 'block';
+
+            // Barra progresso
+            const progress = document.getElementById('progress');
+            const pct = Math.round((step / TOTAL_STEPS) * 100);
+            progress.style.width = pct + '%';
+
+            // Se for o último step (processamento), iniciar
+            if (step === 10) {
+                startProcessing();
+            }
+        }
+
+        function startProcessing() {
+            const terminal = document.getElementById('terminal-screen');
+            terminal.innerHTML = ""; // Limpar
+            const messages = [
+                "Acessando base de dados secreta...",
+                "Analisando perfil metabólico...",
+                "<span style='color: yellow'>⚠️ ALERTA: Inflamação crônica detectada.</span>",
+                "Nível de Cortisol: CRÍTICO (Alto risco)",
+                "Projetando perda de peso acelerada...",
+                "--------------------------------",
+                "CALCULANDO PREVISÃO:",
+                "Semana 1: -7.2kg (Efeito Detox)",
+                "Semana 2: -4.5kg (Gordura Pura)",
+                "Semana 4: -12.0kg (Resultado Final)",
+                "--------------------------------",
+                "<span style='color: #ff003c; font-weight: bold;'>❌ VOCÊ PRECISA AGIR AGORA!</span>",
+                "Gerando acesso ao vídeo explicativo...",
+                "<span style='color: #4ade80;'>✅ ACESSO LIBERADO!</span>"
+            ];
+
+            let i = 0;
+            function typeLine() {
+                if (i < messages.length) {
+                    const p = document.createElement('div');
+                    p.className = 'log-line';
+                    p.innerHTML = "> " + messages[i];
+                    terminal.appendChild(p);
+                    terminal.scrollTop = terminal.scrollHeight;
+                    i++;
+                    setTimeout(typeLine, 600);
+                } else {
+                    setTimeout(() => {
+                        window.location.href = 'vsl.html';
+                    }, 2000);
+                }
+            }
+            typeLine();
+        }
+    </script>
+
+</body>
+
+</html>
