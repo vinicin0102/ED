@@ -37,69 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('%c📊 Configurações Carregadas:', 'color: #8b5cf6; font-weight: bold;', finalConfig);
 
     // ============================================
-    // 1. VÍDEO E HEADLINE (Páginas com vídeo)
+    // 1. VÍDEO E HEADLINE (REMOVIDO PARA EVITAR CONFLITO COM HARDCODED DO VSL.HTML)
     // ============================================
-    const videoWrapper = document.querySelector('.video-wrapper');
-    const headlineEl = document.querySelector('.hero h1');
+    // O código anterior substituía o conteúdo estático pelo config.js/localStorage.
+    // Como queremos fixar a nova oferta, removemos essa lógica dinâmica.
 
-    if (finalConfig.vslEmbed && finalConfig.vslEmbed.trim() !== '' && videoWrapper) {
-        // Substitui o placeholder pelo embed real
-        videoWrapper.innerHTML = finalConfig.vslEmbed;
-    }
-
-    if (finalConfig.vslHeadline && finalConfig.vslHeadline.trim() !== '' && headlineEl) {
-        headlineEl.innerHTML = finalConfig.vslHeadline;
-    }
-
-    // ============================================
-    // 2. DELAY DO BOTÃO CTA (Controlado pelo config)
-    // ============================================
-    const ctaContainer = document.getElementById('cta-container');
-    const socialProofSection = document.getElementById('social-proof-section');
-
-    if (ctaContainer && ctaContainer.classList.contains('hidden-pitch')) {
-        const min = parseInt(finalConfig.ctaMin) || 2;
-        const sec = parseInt(finalConfig.ctaSec) || 44;
-        const delayMs = ((min * 60) + sec) * 1000;
-
-        console.log(`%c⏱️ Delay CTA e Provas Sociais: ${delayMs}ms (${min}m ${sec}s)`, 'color: #16a34a; font-weight: bold;');
-
-        // Garantir que o CTA está escondido
-        ctaContainer.style.display = 'none';
-        ctaContainer.style.opacity = '0';
-
-        // Garantir que as Provas Sociais estão escondidas, se existirem
-        if (socialProofSection) {
-            socialProofSection.style.display = 'none';
-            socialProofSection.style.opacity = '0';
-        }
-
-        setTimeout(() => {
-            // Revelar CTA
-            ctaContainer.style.display = 'block';
-            ctaContainer.classList.remove('hidden-pitch');
-
-            // Revelar Provas Sociais
-            if (socialProofSection) {
-                socialProofSection.style.display = 'block'; // Or 'flex' or whatever the default is, usually block for section
-                socialProofSection.classList.remove('hidden-pitch');
-            }
-
-            // Animar entrada
-            setTimeout(() => {
-                ctaContainer.style.opacity = '1';
-                ctaContainer.style.transition = 'opacity 0.5s ease-out';
-
-                if (socialProofSection) {
-                    socialProofSection.style.opacity = '1';
-                    socialProofSection.style.transition = 'opacity 0.5s ease-out';
-                }
-            }, 50);
-
-            // Scroll suave para o CTA
-            ctaContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, delayMs);
-    }
 
     // ============================================
     // 3. ATUALIZAÇÃO DE LINKS
