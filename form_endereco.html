@@ -247,11 +247,6 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Estado</label>
-                    <input type="text" class="form-control" name="state" id="uf" required style="width: 80px;">
-                </div>
-
                 <button type="submit" class="submit-btn" id="submitBtn">
                     IR PARA PAGAMENTO DO FRETE <i class="fas fa-lock"></i>
                 </button>
@@ -281,7 +276,6 @@
                             document.getElementById('rua').value = data.logradouro;
                             document.getElementById('bairro').value = data.bairro;
                             document.getElementById('cidade').value = data.localidade;
-                            document.getElementById('uf').value = data.uf;
                         }
                     })
                     .catch(() => console.log('Erro ao buscar CEP'));
