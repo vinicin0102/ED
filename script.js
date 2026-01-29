@@ -12,8 +12,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    console.log('Versão Carregada: ' + new Date().toISOString());
-
     // ============================================
     // OBTER CONFIGURAÇÃO (config.js > localStorage)
     // ============================================
