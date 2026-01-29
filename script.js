@@ -77,6 +77,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
+    // 2. DELAY DO BOTÃO CTA (Hardcoded: 6min 33s)
+    // ============================================
+    const ctaContainer = document.getElementById('cta-container');
+    const socialProofSection = document.getElementById('social-proof-section');
+
+    if (ctaContainer) {
+        // HARDCODED DELAY: 6 minutes and 33 seconds
+        const min = 6;
+        const sec = 33;
+        const delayMs = ((min * 60) + sec) * 1000;
+
+        console.log(`%c⏱️ Delay CTA e Provas Sociais INICIADO: ${delayMs}ms (${min}m ${sec}s)`, 'color: #16a34a; font-weight: bold;');
+
+        // 1. Garantir que começa escondido (caso o CSS não tenha pego)
+        ctaContainer.classList.add('hidden-pitch');
+        ctaContainer.style.display = 'none';
+        ctaContainer.style.opacity = '0';
+
+        if (socialProofSection) {
+            socialProofSection.classList.add('hidden-pitch');
+            socialProofSection.style.display = 'none';
+            socialProofSection.style.opacity = '0';
+        }
+
+        // 2. Agendar o aparecimento
+        setTimeout(() => {
+            console.log('%c✅ Mostrando Oferta Agora!', 'color: #16a34a; font-weight: bold;');
+
+            // Revelar CTA
+            ctaContainer.style.display = 'block';
+            ctaContainer.classList.remove('hidden-pitch');
+
+            // Revelar Provas Sociais
+            if (socialProofSection) {
+                socialProofSection.style.display = 'block';
+                socialProofSection.classList.remove('hidden-pitch');
+            }
+
+            // Animar entrada (fade in)
+            setTimeout(() => {
+                ctaContainer.style.opacity = '1';
+                ctaContainer.style.transition = 'opacity 1s ease-out';
+
+                if (socialProofSection) {
+                    socialProofSection.style.opacity = '1';
+                    socialProofSection.style.transition = 'opacity 1s ease-out';
+                }
+            }, 100);
+
+            // Scroll suave para o CTA
+            // ctaContainer.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Opcional, as vezes irrita o usuario
+
+        }, delayMs);
+    }
+
+    // ============================================
     // 4. DATA DINÂMICA
     // ============================================
     const dateElement = document.getElementById('dynamic-date-vsl');
