@@ -241,7 +241,7 @@ img {
     font-weight: bold;
     border-radius: 20px;
     text-transform: uppercase;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .badge-sample {
@@ -256,7 +256,7 @@ img {
     font-weight: bold;
     border-radius: 20px;
     text-transform: uppercase;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .card-title {
@@ -301,17 +301,31 @@ img {
     transition: background 0.2s;
 }
 
+/* IMAGE CARD STYLE (White bg fix) */
+.pricing-card img {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
 .btn-sample {
     background: #dc2626;
     color: white;
 }
-.btn-sample:hover { background: #b91c1c; }
+
+.btn-sample:hover {
+    background: #b91c1c;
+}
 
 .btn-kit {
     background: #16a34a;
     color: white;
 }
-.btn-kit:hover { background: #15803d; }
+
+.btn-kit:hover {
+    background: #15803d;
+}
 
 
 /* --- GAMIFICATION ELEMENTS (NEW) --- */
